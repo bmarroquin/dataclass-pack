@@ -1,0 +1,30 @@
+name: dataclass-pack
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+        os: ["ubuntu-latest", "windows-latest"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: poetry install
+      - name: Lint
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          poetry run ruff --format=github .
+          poetry run black --check .
+          poetry run mypy
+          poetry run isort --check .
+      - name: Test
+        run: poetry run pytest
