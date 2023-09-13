@@ -1,2 +1,2 @@
-def test_package():
+def test_package() -> None:
     assert True
