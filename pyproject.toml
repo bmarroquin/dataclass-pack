@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "dataclass-pack"
+version = "0.1.0"
+description = ""
+authors = ["Brian Marroquin <brianmarroq@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+mypy = "^1.5.1"
+isort = "^5.12.0"
+ruff = "^0.0.289"
+pytest = "^7.4.2"
+
+[tool.black]
+line-length = 120
+
+[tool.mypy]
+packages = ["dataclass_pack", "test"]
+
+[[tool.mypy.overrides]]
+module = ["dataclass_pack.*", "test"]
+strict = true
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
